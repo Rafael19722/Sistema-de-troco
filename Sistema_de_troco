@@ -1,21 +1,30 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+
 public class Main {
 
 	public static void main(String[] args) {
-		long valor;
+		double trocoASerDado;
+		
 		long[] notas = {100, 50, 20, 10, 5, 1};
+		double[] moedas = {0.50, 0.25, 0.1, 0.05, 0.01};
+		
 		ArrayList<Long> troco = new ArrayList<>();
+		ArrayList<Double> trocoMoedas = new ArrayList<>();
+		
 		Scanner sc = new Scanner(System.in);
+		
 		System.out.printf("Dinheiro recebido do cliente: ");
 		long dinheiroRecebido = sc.nextLong();
 		System.out.printf("Saldo devedor: ");
-		long saldoDevedor = sc.nextLong();
-		valor = dinheiroRecebido - saldoDevedor;
+		double saldoDevedor = sc.nextDouble();
+		
+		long valor = (dinheiroRecebido - (long) saldoDevedor) - 1;
+		double valorMoedas = (100 - ((saldoDevedor * 100) - ((long) saldoDevedor * 100))) / 100;
 		sc.close();
-		if (contains(notas, valor)) {
-			System.out.printf("uma simples nota de %s", valor);
+		if (dinheiroRecebido < saldoDevedor) {
+			System.out.printf("O cliente ainda deve um valor de %s", valor + valorMoedas - 1);
 		}
 		else {
 			do {
@@ -35,10 +44,28 @@ public class Main {
 			for (long i : troco) {
 				soma += i;
 			}
-			System.out.printf("O troco a ser dado é %s%n", soma);
-			System.out.printf("As cédulas a serem dadas são %s", troco);
+			if (valorMoedas != 1) {
+				do {
+					for (double i : moedas) {
+						if (valorMoedas - i >= 0) {
+							valorMoedas = valorMoedas - i;
+							trocoMoedas.add(i);
+						}
+					}
+				}while(valorMoedas > 0.001);
+			double somaMoedas = 0;
+			for (double i : trocoMoedas) {
+				somaMoedas += i;
+			}
+			trocoASerDado = soma + somaMoedas;
+			System.out.printf("O troco a ser dado é %s%n", trocoASerDado);
+			}
+			else {
+				System.out.printf("O troco a ser dado é %s%n", soma);
+			}
+			System.out.printf("As cédulas a serem dadas são %s%n", troco);
+			System.out.printf("As moedas a serem dadas são %s", trocoMoedas);
 		}
-
 	}
 	public static boolean contains(long[] notas, long valor) {
 		boolean result = false;
