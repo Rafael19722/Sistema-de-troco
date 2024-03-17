@@ -8,7 +8,11 @@ public class Main {
 		long[] notas = {100, 50, 20, 10, 5, 1};
 		ArrayList<Long> troco = new ArrayList<>();
 		Scanner sc = new Scanner(System.in);
-		valor = sc.nextLong();
+		System.out.printf("Dinheiro recebido do cliente: ");
+		long dinheiroRecebido = sc.nextLong();
+		System.out.printf("Saldo devedor: ");
+		long saldoDevedor = sc.nextLong();
+		valor = dinheiroRecebido - saldoDevedor;
 		sc.close();
 		if (contains(notas, valor)) {
 			System.out.printf("uma simples nota de %s", valor);
@@ -27,7 +31,12 @@ public class Main {
 				}
 			}
 			}while(valor != 0);
-			System.out.printf("As cédulas dadas são %s", troco);
+			long soma = 0;
+			for (long i : troco) {
+				soma += i;
+			}
+			System.out.printf("O troco a ser dado é %s%n", soma);
+			System.out.printf("As cédulas a serem dadas são %s", troco);
 		}
 
 	}
