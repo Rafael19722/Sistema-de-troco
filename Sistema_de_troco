@@ -1,0 +1,46 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Main {
+
+	public static void main(String[] args) {
+		long valor;
+		long[] notas = {100, 50, 20, 10, 5, 1};
+		ArrayList<Long> troco = new ArrayList<>();
+		Scanner sc = new Scanner(System.in);
+		valor = sc.nextLong();
+		sc.close();
+		if (contains(notas, valor)) {
+			System.out.printf("uma simples nota de %s", valor);
+		}
+		else {
+			do {
+			for (long i : notas) {
+				if (valor - i >= 0) {
+					while(true) {
+						valor = valor - i;
+						troco.add(i);
+						if (valor < i) {
+							break;
+						}
+					}
+				}
+			}
+			}while(valor != 0);
+			System.out.printf("As cédulas dadas são %s", troco);
+		}
+
+	}
+	public static boolean contains(long[] notas, long valor) {
+		boolean result = false;
+		for(long i : notas) {
+			if(i == valor) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+
+
+}
